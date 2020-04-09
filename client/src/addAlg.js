@@ -6,6 +6,8 @@ const AddAlg = (props) => {
   const [showForm, setShowForm] = useState(false);
   const history = useHistory();
   const pllCase = history.location.pathname.slice(1);
+  let recommended;
+  let alternative;
 
   const useStyles = createUseStyles({
     input: {
@@ -76,9 +78,37 @@ const AddAlg = (props) => {
     }
   };
 
+  const setRecommended = (e) => {
+    recommended = e.target.value;
+  };
+  const setAlternative = (e) => {
+    alternative = e.target.value;
+  };
+
   const uploadCase = (e) => {
     e.preventDefault();
+    let data = {
+      name: pllCase,
+      imageUrl: imageUrl(),
+      recommended: recommended,
+      alternative: alternative,
+    };
+    postData(data).then((data) => {
+      props.setAllAlgs([...data]);
+      props.setAlgs([...data]);
+    });
   };
+
+  async function postData(data) {
+    const response = await fetch("http://localhost:8080/api/algs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  }
 
   const renderForm = () => {
     return (
@@ -101,15 +131,15 @@ const AddAlg = (props) => {
         <input
           required
           className={classes.input}
-          id="recommended"
           type="text"
+          onChange={setRecommended}
         />
         <h4>Alternative alg:</h4>
         <input
           required
           className={classes.input}
-          id="recommended"
           type="text"
+          onChange={setAlternative}
         />
         <button className={classes.button} onClick={uploadCase}>
           Upload case

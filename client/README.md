@@ -1,3 +1,3 @@
-2. Fixa routing så varje case har en egen sida/Lagg alla case på en rad
-3. Fixa så de case som finns är uplysta
-4. Fixa så att de case som inte finns har en knapp så man kan lägga till case /namn och bild fördefinerat
+1. Fixa så de case som finns är uplysta
+2. Fixa ett objekt av alla inputs
+3. POSTA objektet (se mozilla / Viktor kod)
