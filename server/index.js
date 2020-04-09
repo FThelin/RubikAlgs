@@ -29,6 +29,12 @@ app.get("/api/algs/:name", (req, res) => {
 
 //Handle post request with new alg
 app.post("/api/algs", (req, res) => {
+  if (!req.body.recommended || !req.body.alternative) {
+    res
+      .status(400)
+      .send("Both 'Recommended' and 'Alternative' algs must be set");
+    return;
+  }
   fs.readFile("./alg-data.json", "utf8", (err, data) => {
     if (err) {
       console.error(err);
