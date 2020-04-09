@@ -21,8 +21,8 @@ app.get("/api/algs", (req, res) => {
 });
 
 //respond with one alg by ID
-app.get("/api/algs/:id", (req, res) => {
-  const alg = algs.find((a) => a.id === parseInt(req.params.id));
+app.get("/api/algs/:name", (req, res) => {
+  const alg = algs.find((a) => a.name === req.params.name);
   if (!alg) res.status(404).send("The alg with given id was not found");
   res.send(alg);
 });

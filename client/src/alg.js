@@ -4,8 +4,9 @@ import { createUseStyles } from "react-jss";
 const Alg = (props) => {
   const useStyles = createUseStyles({
     box: {
+      width: "40rem",
       display: "flex",
-      marginBottom: "2rem",
+      marginTop: "2rem",
       backgroundColor: "rgba(0,0,0,0.2)",
     },
     innerBox: {
@@ -18,8 +19,8 @@ const Alg = (props) => {
     <div className={classes.box}>
       <img src={props.alg.imageUrl} alt="algimage" />
       <div className={classes.innerBox}>
-        <h2>{props.alg.name}</h2>
-        <p>
+        <h2 style={{ marginTop: "1rem" }}>{props.alg.name}</h2>
+        <p style={{ marginTop: "1rem" }}>
           <span style={{ fontWeight: "bold" }}>Recommended: </span>
           {props.alg.recommended}
         </p>

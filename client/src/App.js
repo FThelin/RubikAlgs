@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
+import { BrowserRouter as Router } from "react-router-dom";
+import Nav from "./nav";
 import Alg from "./alg";
+import AddAlg from "./addAlg";
 
 const App = () => {
   const [algs, setAlgs] = useState([]);
+  const [allAlgs, setAllAlgs] = useState([]);
 
   const useStyles = createUseStyles({
     main: {
@@ -17,6 +21,7 @@ const App = () => {
       color: "#E7E7E7",
       letterSpacing: "0.5rem",
       fontSize: "4rem",
+      margin: "2rem",
     },
     p: {
       color: "lightgray",
@@ -26,22 +31,46 @@ const App = () => {
 
   useEffect(() => {
     fetch("http://localhost:8080/api/algs").then((response) =>
-      response.json().then((data) => setAlgs(data))
+      response.json().then((data) => {
+        setAlgs(data);
+        setAllAlgs(data);
+      })
     );
   }, []);
+
+  const showSingleAlg = (name) => {
+    name === "ALL"
+      ? fetch("http://localhost:8080/api/algs").then((response) =>
+          response.json().then((data) => setAlgs(data))
+        )
+      : allAlgs.find((alg) => {
+          if (alg.name === name) {
+            fetch(`http://localhost:8080/api/algs/${name}`).then((response) =>
+              response.json().then((data) => setAlgs([data]))
+            );
+          } else {
+            setAlgs([]);
+          }
+        });
+  };
 
   return (
     <div className={classes.main}>
       <h1 className={classes.h1}>Rubik´s Cube PLL algs</h1>
       <p className={classes.p}>
-        {`Currently ${algs.length}/21 cases are uploaded`}
+        {`Currently ${allAlgs.length}/21 cases are uploaded`}
       </p>
-      <p className={classes.p}>Aa Ab E F Ga Gb Gc Gd</p>
-      <div>
-        {algs.map((alg) => (
-          <Alg key={alg.id} alg={alg} />
-        ))}
-      </div>
+      <Router>
+        <Nav showSingleAlg={showSingleAlg} />
+
+        <div>
+          {algs.length !== 0 ? (
+            algs.map((alg) => <Alg key={alg.id} alg={alg} />)
+          ) : (
+            <AddAlg setAllAlgs={setAllAlgs} />
+          )}
+        </div>
+      </Router>
     </div>
   );
 };

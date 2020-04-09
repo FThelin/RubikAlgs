@@ -5,7 +5,7 @@ GET http://localhost:8080/api/algs
 
 
 //Get a single alg
-GET http://localhost:8080/api/algs/2
+GET http://localhost:8080/api/algs/Aa
 
 ###
 
