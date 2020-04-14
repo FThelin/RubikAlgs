@@ -65,7 +65,14 @@ const App = () => {
 
         <div>
           {algs.length !== 0 ? (
-            algs.map((alg) => <Alg key={alg.id} alg={alg} />)
+            algs.map((alg) => (
+              <Alg
+                key={alg.id}
+                alg={alg}
+                setAlgs={setAlgs}
+                setAllAlgs={setAllAlgs}
+              />
+            ))
           ) : (
             <AddAlg setAlgs={setAlgs} setAllAlgs={setAllAlgs} />
           )}

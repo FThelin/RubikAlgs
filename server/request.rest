@@ -1,16 +1,16 @@
-//Get all algs
+//Get all cases
 GET http://localhost:8080/api/algs
 
 ###
 
 
-//Get a single alg
+//Get a single case
 GET http://localhost:8080/api/algs/Aa
 
 ###
 
 
-//Post a new alg
+//Post a new case
 POST http://localhost:8080/api/algs
 Content-Type: application/json
 
@@ -20,3 +20,16 @@ Content-Type: application/json
     "recommended": "Test",
     "alternative": "Test"
 }
+
+###
+
+//Update a case
+PUT http://localhost:8080/api/algs/Aa
+Content-Type: application/json
+
+{    
+    "recommended": "Test",
+    "alternative": "Test"
+}
+
+###

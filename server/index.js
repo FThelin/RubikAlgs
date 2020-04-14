@@ -8,10 +8,13 @@ app.use(express.json());
 //To be able to send requests locally
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept, Z-Key",
+  });
   next();
 });
 
@@ -48,6 +51,29 @@ app.post("/api/algs", (req, res) => {
       };
       obj = JSON.parse(data);
       obj.push(alg);
+      json = JSON.stringify(obj);
+      fs.writeFile("./alg-data.json", json, "utf8", () => {
+        res.send(json);
+      });
+    }
+  });
+});
+
+//Handle put request to update
+app.put("/api/algs/:name", (req, res) => {
+  fs.readFile("./alg-data.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(400).send("Can not update");
+      return;
+    } else {
+      obj = JSON.parse(data);
+      // const alg = obj.find((a) => a.name === req.params.name);
+      obj.find((o) => {
+        if (o.name === req.params.name) {
+          o.recommended = req.body.recommended;
+          o.alternative = req.body.alternative;
+        }
+      });
       json = JSON.stringify(obj);
       fs.writeFile("./alg-data.json", json, "utf8", () => {
         res.send(json);
