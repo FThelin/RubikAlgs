@@ -67,13 +67,37 @@ app.put("/api/algs/:name", (req, res) => {
       return;
     } else {
       obj = JSON.parse(data);
-      // const alg = obj.find((a) => a.name === req.params.name);
+
       obj.find((o) => {
         if (o.name === req.params.name) {
           o.recommended = req.body.recommended;
           o.alternative = req.body.alternative;
         }
       });
+      json = JSON.stringify(obj);
+      fs.writeFile("./alg-data.json", json, "utf8", () => {
+        res.send(json);
+      });
+    }
+  });
+});
+
+//Handle delete request
+app.delete("/api/algs/:name", (req, res) => {
+  fs.readFile("./alg-data.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(400).send("Can not update");
+      return;
+    } else {
+      obj = JSON.parse(data);
+
+      const pllCase = obj.find((alg) => alg.name === req.params.name);
+      const index = obj.indexOf(pllCase);
+      if (index >= 0) {
+        obj.splice(index, 1);
+      } else {
+        res.send(`Can not find case ${req.params.name}`);
+      }
       json = JSON.stringify(obj);
       fs.writeFile("./alg-data.json", json, "utf8", () => {
         res.send(json);

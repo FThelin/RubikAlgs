@@ -33,3 +33,9 @@ Content-Type: application/json
 }
 
 ###
+
+//Delete a case
+DELETE http://localhost:8080/api/algs/Aa
+Content-Type: application/json
+
+###
