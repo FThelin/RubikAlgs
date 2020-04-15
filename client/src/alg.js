@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
 import UpdateAlg from "./updateAlg";
+import { useHistory } from "react-router-dom";
 
 const Alg = (props) => {
   const [show, setShow] = useState(false);
+  const history = useHistory();
 
   const useStyles = createUseStyles({
     box: {
@@ -25,6 +27,22 @@ const Alg = (props) => {
   const closeUpdateFields = () => {
     setShow(false);
   };
+
+  async function deleteCase() {
+    const response = await fetch(
+      `http://localhost:8080/api/algs/${props.alg.name}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    props.setAllAlgs(data);
+    props.setAlgs(data);
+    history.push("/");
+  }
 
   return show ? (
     <UpdateAlg
@@ -49,7 +67,7 @@ const Alg = (props) => {
       </div>
       <div>
         <button onClick={showUpdateFields}>Update</button>
-        <button>Delete</button>
+        <button onClick={deleteCase}>Delete</button>
       </div>
     </div>
   );
