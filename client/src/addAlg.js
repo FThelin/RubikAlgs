@@ -161,7 +161,11 @@ const AddAlg = (props) => {
         textAlign: "center",
       }}
     >
-      <h3 style={{ marginBottom: "1rem" }}>This alg is not uploaded yet</h3>
+      <h3
+        style={{ marginBottom: "1rem" }}
+      >{`The ${history.location.pathname.slice(
+        1
+      )} case is not uploaded yet`}</h3>
       <button className={classes.button} onClick={show}>
         Add this case
       </button>

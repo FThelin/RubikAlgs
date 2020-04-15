@@ -17,6 +17,22 @@ const Alg = (props) => {
     innerBox: {
       marginLeft: "1rem",
     },
+    btn: {
+      margin: "0.3rem 1rem 0 0",
+      width: "4rem",
+      height: "2rem",
+      backgroundColor: "transparent",
+      border: "2px solid lightgray",
+      borderRadius: "5px",
+      color: "lightgray",
+      fontSize: "1rem",
+      fontFamily: "'Rubik', sans-serif",
+      "&:hover": {
+        cursor: "pointer",
+        border: "2px solid white",
+        color: "white",
+      },
+    },
   });
   const classes = useStyles();
 
@@ -52,22 +68,28 @@ const Alg = (props) => {
       setAllAlgs={props.setAllAlgs}
     />
   ) : (
-    <div className={classes.box}>
-      <img src={props.alg.imageUrl} alt="algimage" />
-      <div className={classes.innerBox}>
-        <h2 style={{ marginTop: "1rem" }}>{props.alg.name}</h2>
-        <p style={{ marginTop: "1rem" }}>
-          <span style={{ fontWeight: "bold" }}>Recommended: </span>
-          {props.alg.recommended}
-        </p>
-        <p>
-          <span style={{ fontWeight: "bold" }}>Alternative: </span>
-          {props.alg.alternative}
-        </p>
+    <div>
+      <div className={classes.box}>
+        <img src={props.alg.imageUrl} alt="algimage" />
+        <div className={classes.innerBox}>
+          <h2 style={{ marginTop: "1rem" }}>{props.alg.name}</h2>
+          <p style={{ marginTop: "1rem" }}>
+            <span style={{ fontWeight: "bold" }}>Recommended: </span>
+            {props.alg.recommended}
+          </p>
+          <p>
+            <span style={{ fontWeight: "bold" }}>Alternative: </span>
+            {props.alg.alternative}
+          </p>
+        </div>
       </div>
       <div>
-        <button onClick={showUpdateFields}>Update</button>
-        <button onClick={deleteCase}>Delete</button>
+        <button className={classes.btn} onClick={showUpdateFields}>
+          Update
+        </button>
+        <button className={classes.btn} onClick={deleteCase}>
+          Delete
+        </button>
       </div>
     </div>
   );
