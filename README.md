@@ -11,11 +11,12 @@ Using node and Express.js to build rest API´s and handle incoming requests.
 
 ##Install
 
-1. npm install
-2. Open client terminal window and "npm start"
-3. Open server terminal and "nodemon index.js"
+1. Open client terminal window and type first "npm install" then "npm start"
+2. Open server terminal and type "npm install" then "nodemon index.js"
 
 Use request.rest to test or using the Front-End UI
+
+Repo: https://github.com/FThelin/RubikAlgs
 
 By
 Fredrik Thelin
