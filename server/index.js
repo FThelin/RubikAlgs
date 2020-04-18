@@ -43,7 +43,7 @@ app.post("/api/algs", (req, res) => {
       console.error(err);
     } else {
       const alg = {
-        id: algs.length + 1,
+        id: Math.floor(Math.random() * 1000),
         name: req.body.name,
         imageUrl: req.body.imageUrl,
         recommended: req.body.recommended,
